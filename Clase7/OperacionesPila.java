@@ -40,7 +40,8 @@ public class OperacionesPila {
 
     /*
      * Tarea: Iplementar todos los metodos de la clase vector
-     * https://docs.oracle.com/javase/8/docs/api/java/util/Stack.htm
+     * https://docs.oracle.com/javase/8/docs/api/java/util/Stack.html
      * Realizar ejemplos practicos para validar su funcionamiento
      */
+    
 }

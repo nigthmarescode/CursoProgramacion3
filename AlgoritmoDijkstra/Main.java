@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         int numOfVertices = 6;
@@ -14,7 +16,7 @@ public class Main {
         graph.addEdge(5, 3, 7);
 
         // llama al algoritmo de Dijkstra para encontrar la distancia más corta
-        int[] dist = dijkstrasShortestPath(graph, 0);
+        int[] dist = AlgoritmoDijkstra.dijkstrasShortestPath(graph, 0);
         System.out.print(Arrays.toString(dist));
     }
 }

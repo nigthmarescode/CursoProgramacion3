@@ -1,4 +1,4 @@
-public class Grafo {
+public class Graph {
 
     int[][] adjMatrix; // matriz de adyacencia para representar los bordes
     int numOfvertices;

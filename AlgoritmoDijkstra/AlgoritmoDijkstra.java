@@ -1,49 +1,46 @@
+import java.util.Arrays;
+
 public class AlgoritmoDijkstra {
-    public static int getClosestVertex(int[] distance, boolean[] visited) {
-        int min = Integer.MAX_VALUE;
-        int minIdx = -1;
-        for (int i = 0; i < distance.length; i++) {
-            if (distance[i] < min)
-                if (visited[i] == false) {
-                    min = distance[i];
-                    minIdx = i;
-                }
-        }
-        return minIdx;
-    }
+    static final int INF = Integer.MAX_VALUE;
 
-    public static int[] dijkstrasShortestPath(Graph g, int src) {
-        // matriz final de distancias más cortas
-        int[] distance = new int[g.numOfvertices];
-        // matriz para indicar si se ha encontrado la distancia más corta del vértice
-        boolean[] visited = new boolean[g.numOfvertices];
+    public static void dijkstra(int[][] graph, int source) {
+        int n = graph.length;
+        int[] distance = new int[n];
+        boolean[] visited = new boolean[n];
 
-        // inicializando las matrices
-        for (int i = 0; i < g.numOfvertices; i++) {
-            distance[i] = Integer.MAX_VALUE; // la distancia inicial es infinita
-            visited[i] = false; // no se ha encontrado la distancia más corta para ningún nodo todavía
-        }
-        distance[src] = 0;
+        Arrays.fill(distance, INF);
+        distance[source] = 0;
 
-        for (int i = 0; i < g.numOfvertices; i++) {
-            int closestVertex = getClosestVertex(distance, visited); // obtiene el nodo más cercano
-            if (closestVertex == Integer.MAX_VALUE) // si el nodo más cercano está a una distancia infinita, significa
-                                                    // que no se puede alcanzar ningún otro nodo. Entonces devuelve
-                return distance;
+        for (int count = 0; count < n - 1; count++) {
+            int u = minDistance(distance, visited);
+            visited[u] = true;
 
-            visited[closestVertex] = true;
-            for (int j = 0; j < g.numOfvertices; j++) {
-                if (visited[j] == false) // la distancia más corta del nodo j no debe haber sido finalizada
-                {
-                    if (g.adjMatrix[closestVertex][j] != 0) {
-                        int d = distance[closestVertex] + g.adjMatrix[closestVertex][j];
-                        if (d < distance[j]) // la distancia a través del nodo más cercano es menor que la distancia
-                                             // inicial
-                            distance[j] = d;
-                    }
+            for (int v = 0; v < n; v++) {
+                if (!visited[v] && graph[u][v] != 0 && distance[u] != INF &&
+                        distance[u] + graph[u][v] < distance[v]) {
+                    distance[v] = distance[u] + graph[u][v];
                 }
             }
         }
-        return distance;
+
+        printSolution(distance);
+    }
+
+    private static int minDistance(int[] distance, boolean[] visited) {
+        int min = INF, minIndex = -1;
+        for (int v = 0; v < distance.length; v++) {
+            if (!visited[v] && distance[v] <= min) {
+                min = distance[v];
+                minIndex = v;
+            }
+        }
+        return minIndex;
+    }
+
+    private static void printSolution(int[] distance) {
+        System.out.println("Distancias más cortas desde la fuente:");
+        for (int i = 0; i < distance.length; i++) {
+            System.out.println("A " + i + ": " + distance[i]);
+        }
     }
 }

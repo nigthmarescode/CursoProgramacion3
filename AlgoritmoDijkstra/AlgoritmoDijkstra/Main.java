@@ -1,21 +1,20 @@
 package AlgoritmoDijkstra;
 
 import java.util.*;
-import static AlgoritmoDijkstra.DijkstraColombia.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        // Lista de ciudades del grafo
+        // Lista de ciudades (nodos del grafo)
         String[] ciudades = { "Cali", "Bogotá", "Medellín", "Barranquilla", "Cartagena" };
 
-        // Creamos el grafo como lista de adyacencia
+        // Grafo como lista de adyacencia
         List<List<Arista>> grafo = new ArrayList<>();
         for (int i = 0; i < ciudades.length; i++) {
             grafo.add(new ArrayList<>());
         }
 
-        // Conexiones entre ciudades (peso = distancia aproximada en km)
+        // Conexiones entre ciudades (peso = distancia aprox en km)
         grafo.get(0).add(new Arista(1, 460)); // Cali -> Bogotá
         grafo.get(0).add(new Arista(2, 420)); // Cali -> Medellín
         grafo.get(2).add(new Arista(1, 415)); // Medellín -> Bogotá
@@ -25,17 +24,15 @@ public class Main {
 
         // Nodo inicial: Cali (índice 0)
         int inicio = 0;
-        int[] distancias = dijkstra(grafo, inicio);
+        int[] distancias = DijkstraColombia.dijkstra(grafo, inicio);
 
-        // Mostrar distancias desde Cali
+        // Mostrar las distancias desde Cali
         System.out.println("Distancias desde Cali:");
         for (int i = 0; i < ciudades.length; i++) {
             System.out.println(ciudades[i] + ": " + distancias[i] + " km");
         }
 
-        // ==========================
-        // Ordenamos las distancias (punto 3 del enunciado)
-        // ==========================
+        // Ordenar distancias (punto 3 del enunciado)
         int[] distOrdenadas = distancias.clone();
         Arrays.sort(distOrdenadas);
 
@@ -45,6 +42,7 @@ public class Main {
                 System.out.println(d + " km");
         }
 
+        // Mostrar el recorrido más corto hacia Cartagena
         System.out.println(
                 "\nEl recorrido más corto desde Cali termina en: " + ciudades[4] + " (" + distancias[4] + " km)");
     }
